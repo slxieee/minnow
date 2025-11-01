@@ -12,11 +12,18 @@ void get_URL( const string& host, const string& path )
 {
   TCPSocket socket {};
   socket.connect( Address { host, "http" } );
+  // telnet {HOST} http 连接到对应的服务端口
 
   const string request = "GET " + path + " HTTP/1.1\r\n" + "Host: " + host + "\r\n"
                          + "Connection: close\r\n\r\n";
+  /*
+  格式：
+  GET {PATH} HTTP/1.1
+  Host: {HOST}
+  Connection: close
+  */
 
-  string_view remaining { request };
+  string_view remaining { request }; // 请求数据
   while ( not remaining.empty() ) {
     const size_t written = socket.write( remaining );
     remaining.remove_prefix( written );
