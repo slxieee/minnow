@@ -1,9 +1,9 @@
 Checkpoint 0 Writeup
 ====================
 
-My name: [your name here]
+My name: 谢升楼
 
-My StudentID: [your studentId here]
+My StudentID: 23302010021
 
 I would like to credit/thank these classmates for their help: [list studentIids here]
 
