@@ -5,11 +5,11 @@ My name: 谢升楼
 
 My StudentID: 23302010021
 
-I would like to credit/thank these classmates for their help: [list studentIids here]
+I would like to credit/thank these classmates for their help: I finished this lab by myself.
 
 This lab took me about [n] hours to do. I [did/did not] attend the lab session.
 
-My secret code from section 2.1 was: [code here]
+My secret code from section 2.1 was: 578786
 
 I was surprised by or edified to learn that: [describe]
 
