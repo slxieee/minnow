@@ -9,7 +9,7 @@ I would like to credit/thank these classmates for their help: I finished this la
 
 This lab took me about 3 hours to do. I did attend the lab session.
 
-My secret code from section 2.1 was: 578786
+My secret code from section 2.1 was: **578786**
 
 ---
 
@@ -17,7 +17,7 @@ My secret code from section 2.1 was: 578786
 
 - 有限容量的字节流只要读者及时读取，就能承载任意长度的逻辑流；容量只限制内存中缓存的字节数，而不限制流的总长度。
 
-- 在 HTTP/1.1 中，每行必须用 CRLF ("\r\n") 结尾，并且明确发送 "Connection: close" 很重要。有了 "close"，服务器在发送完响应后会关闭连接，客户端可以通过 EOF 可靠地判断何时停止读取。
+- 在 HTTP/1.1 中，明确发送 "Connection: close" 很重要。有了 "close"，服务器在发送完响应后会关闭连接，客户端可以通过 EOF 可靠地判断何时停止读取。
 
 - 一个小的实现细节（比如 shell 脚本的可执行位）就可能阻塞整个 CTest 运行；修复文件权限和修代码同等重要。
 
@@ -57,8 +57,5 @@ My secret code from section 2.1 was: 578786
 ---
 
 **Optional: I contributed a new test case that catches a plausible bug**
-
-  not otherwise caught: [provide Pull Request URL]
-  not otherwise caught: [provide Pull Request URL]
 
 ---
