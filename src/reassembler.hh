@@ -2,6 +2,10 @@
 
 #include "byte_stream.hh"
 
+#include <map>
+#include <optional>
+#include <string>
+
 class Reassembler
 {
 public:
@@ -42,4 +46,14 @@ public:
 
 private:
   ByteStream output_; // the Reassembler writes to this ByteStream
+
+  uint64_t next_index_ {};
+  std::map<uint64_t, std::string> segments_ {};
+  uint64_t pending_bytes_ {};
+  std::optional<uint64_t> eof_index_ {};
+
+  [[nodiscard]] uint64_t first_unacceptable_index() const;
+  void store_segment( uint64_t start, std::string&& data );
+  void assemble_contiguous();
+  void maybe_close();
 };
