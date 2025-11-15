@@ -11,7 +11,7 @@ This lab took me about 3.5 hours to do. I did attend the lab session.
 ---
 
 I was surprised by or edified to learn that: 
-简单的重组器要对容量、窗口边界和重复/重叠数据处理得这么严格才能通过所有测试。特别是first unassembled / first unacceptable index的窗口模型，让我更直观地理解了 TCP 接收端是如何在有限内存下进行有界缓冲的。
+简单的重组器要对容量、窗口边界和重复/重叠数据处理得这么严格才能通过所有测试。特别是first unassembled / first unacceptable index的窗口模型，让我更直观地理解了TCP接收端是如何在有限内存下进行有界缓冲的。
 
 ---
 
@@ -116,13 +116,13 @@ measurements if applicable.]
 Implementation Challenges:
 
 [1] Correctly handling the capacity window.  
-一开始我只根据 `first_unassembled` 做剪裁，忘了考虑 `first_unacceptable`，导致有些测试中，reassembler 会存下超过 capacity 的数据。修正思路是把“当前位置 + available_capacity()”作为 `first_unacceptable`，对每个新 segment 做区间裁剪和丢弃。
+一开始我只根据`first_unassembled`做剪裁，忘了考虑`first_unacceptable`，导致有些测试中，reassembler 会存下超过 capacity 的数据。修正思路是把“当前位置 + available_capacity()”作为`first_unacceptable`，对每个新 segment 做区间裁剪和丢弃。
 
 [2] 处理重叠和重复片段。  
-重叠场景尤其多（`reassembler_overlapping.cc` 里的测试），一开始我简单地插入 `std::map` 并在遇到重叠时只做部分覆盖，结果 `bytes_pending()` 和 `bytes_pushed()` 都和预期不一致。最后采用了“吸收所有重叠片段、统一合并后重新插入”的方案，保证 map 中每个区间不重叠。
+重叠场景尤其多（`reassembler_overlapping.cc` 里的测试），一开始我简单地插入`std::map` 并在遇到重叠时只做部分覆盖，结果`bytes_pending()` 和 `bytes_pushed()` 都和预期不一致。最后采用了“吸收所有重叠片段、统一合并后重新插入”的方案，保证map中每个区间不重叠。
 
 [3] EOF / is_finished 判定。  
-`is_last_substring` 可能在有“洞”的时候提前到来（比如先到达流结尾的一部分，再补前面的内容）。一开始我只在收到 last substring 时立即 close，导致有的测试期望 `is_finished == false` 时已经关闭。最后把逻辑改成：记录 `eof_index_`，只有当 `next_index_ == eof_index_` 且 `bytes_pending() == 0` 时才关闭 `ByteStream`。
+`is_last_substring` 可能提前到来（比如先到达流结尾的一部分，再补前面的内容）。一开始我只在收到 last substring 时立即 close，导致有的测试期望 `is_finished == false` 时已经关闭。最后把逻辑改成：记录 `eof_index_`，只有当 `next_index_ == eof_index_` 且 `bytes_pending() == 0` 时才关闭 `ByteStream`。
 
 
 ---
@@ -130,6 +130,8 @@ Implementation Challenges:
 Remaining Bugs:
 according to the test bench performance, no known bug.
 
+测试结果如图所示:
+![alt text](image-6.png)
 ---
 
 - Optional: I had unexpected difficulty with: [describe]
